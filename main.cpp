@@ -1,4 +1,4 @@
-п»ї#include <iostream>
+#include <iostream>
 #include <string>
 #include <conio.h>
 #include <vector>
@@ -11,11 +11,11 @@ void deleteCharacter(string& str, int index) {
     cout << "#-----------------------------------------------------------------#" << endl;
     if (index >= 0 && index < str.length()) {
         str.erase(index, 1);
-        cout << "   Р СЏРґРѕРє РїС–СЃР»СЏ РІРёРґР°Р»РµРЅРЅСЏ: " << str << endl;
+        cout << "   Рядок після видалення: " << str << endl;
         cout << endl;
     }
     else {
-        cout << "   РџРѕРјРёР»РєР°: РЅРµРїСЂР°РІРёР»СЊРЅРёР№ С–РЅРґРµРєСЃ" << endl;
+        cout << "   Помилка: неправильний індекс" << endl;
     }
 }
 
@@ -25,17 +25,17 @@ void deleteAllOccurrences(string& str, char ch) {
     while ((pos = str.find(ch, pos)) != string::npos) {
         str.erase(pos, 1);
     }
-    cout << "   Р СЏРґРѕРє РїС–СЃР»СЏ РІРёРґР°Р»РµРЅРЅСЏ СѓСЃС–С… РІС…РѕРґР¶РµРЅСЊ СЃРёРјРІРѕР»Сѓ '" << ch << "': " << str << endl;
+    cout << "   Рядок після видалення усіх входжень символу '" << ch << "': " << str << endl;
 }
 
 void insertCharacter(string& str, int index, char ch) {
     cout << "#-----------------------------------------------------------------#" << endl;
     if (index >= 0 && index <= str.length()) {
         str.insert(index, 1, ch);
-        cout << "   Р СЏРґРѕРє РїС–СЃР»СЏ РІСЃС‚Р°РІРєРё СЃРёРјРІРѕР»Сѓ: " << str << endl;
+        cout << "   Рядок після вставки символу: " << str << endl;
     }
     else {
-        cout << "   РџРѕРјРёР»РєР°: РЅРµРїСЂР°РІРёР»СЊРЅРёР№ С–РЅРґРµРєСЃ" << endl;
+        cout << "   Помилка: неправильний індекс" << endl;
     }
 }
 
@@ -46,7 +46,7 @@ void replaceDotsWithExclamation(string& str) {
             str[i] = '!';
         }
     }
-    cout << "   Р СЏРґРѕРє РїС–СЃР»СЏ Р·Р°РјС–РЅРё РІСЃС–С… РєСЂР°РїРѕРє РЅР° Р·РЅР°РєРё РѕРєР»РёРєСѓ: " << str << endl;
+    cout << "   Рядок після заміни всіх крапок на знаки оклику: " << str << endl;
 }
 
 int countOccurrences(const string& str, char ch) {
@@ -64,27 +64,27 @@ void countCharacters(const string& str) {
     cout << "#-----------------------------------------------------------------#" << endl;
     int letters = 0, digits = 0, others = 0;
     for (char c : str) {
-        if (isalpha(c+256)) {
+        if (isalpha(c)) {
             letters++;
         }
-        else if (isdigit(c+256)) {
+        else if (isdigit(c)) {
             digits++;
         }
         else {
             others++;
         }
     }
-    cout << "   РљС–Р»СЊРєС–СЃС‚СЊ Р»С–С‚РµСЂ: " << letters << endl;
-    cout << "   РљС–Р»СЊРєС–СЃС‚СЊ С†РёС„СЂ: " << digits << endl;
-    cout << "   РљС–Р»СЊРєС–СЃС‚СЊ С–РЅС€РёС… СЃРёРјРІРѕР»С–РІ: " << others << endl;
+    cout << "   Кількість літер: " << letters << endl;
+    cout << "   Кількість цифр: " << digits << endl;
+    cout << "   Кількість інших символів: " << others << endl;
 }
 
 void sortWordsByLength(string& str) {
     cout << "#-----------------------------------------------------------------#" << endl;
-    // РЎС‚РІРѕСЂРµРЅРЅСЏ РІРµРєС‚РѕСЂР° РґР»СЏ Р·Р±РµСЂС–РіР°РЅРЅСЏ СЃР»С–РІ
+    
     vector<string> words;
 
-    // Р РѕР·Р±РёС‚С‚СЏ СЂСЏРґРєР° РЅР° СЃР»РѕРІР°
+    // Розбиття на слова
     string word;
     for (char c : str) {
         if (isspace(c)) {
@@ -101,13 +101,12 @@ void sortWordsByLength(string& str) {
         words.push_back(word);
     }
 
-    // РЎРѕСЂС‚СѓРІР°РЅРЅСЏ СЃР»С–РІ Р·Р° РґРѕРІР¶РёРЅРѕСЋ
+    // Сортування слів
     sort(words.begin(), words.end(), [](const string& a, const string& b) {
         return a.length() > b.length();
         });
 
-    // Р’РёРІРµРґРµРЅРЅСЏ РІС–РґСЃРѕСЂС‚РѕРІР°РЅРёС… СЃР»С–РІ
-    cout << "   Р СЏРґРѕРє Р·С– СЃР»РѕРІР°РјРё РІ РїРѕСЂСЏРґРєСѓ Р·РјРµРЅС€РµРЅРЅСЏ С—С… РґРѕРІР¶РёРЅРё:" << endl;
+    cout << "   Рядок зі словами в порядку зменшення їх довжини:" << endl;
     for (const string& w : words) {
         cout << "   " << w << endl;
     }
@@ -148,52 +147,53 @@ int evaluateExpression(const string& expression) {
 
 
 int main() {
-    //SetConsoleCP(1251);
-    //SetConsoleOutputCP(1251);
+    //system("chcp 1251>nul");
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
     int choice = 1;
     string str, expression;
     char ch;
     int index;
     
 
-    cout << "Р’РІРµРґС–С‚СЊ СЂСЏРґРѕРє: ";
+    cout << "Введіть рядок: ";
     getline(cin, str);
     
     while (choice != 0)
     {
         system("cls");
 
-        cout << "                          РњРµРЅСЋ Р·Р°РІРґР°РЅСЊ:" << endl;
-        cout << "1.               Р’РёРґР°Р»РёС‚Рё СЃРёРјРІРѕР» Р·Р° С–РЅРґРµРєСЃРѕРј" << endl;
-        cout << "2.              Р’РёРґР°Р»РёС‚Рё РІСЃС– РІС…РѕРґР¶РµРЅРЅСЏ СЃРёРјРІРѕР»Сѓ" << endl;
-        cout << "3.               Р’СЃС‚Р°РІРёС‚Рё СЃРёРјРІРѕР» Р·Р° С–РЅРґРµРєСЃРѕРј" << endl;
-        cout << "4.          Р—Р°РјС–РЅРёС‚Рё РІСЃС– РєСЂР°РїРєРё РЅР° Р·РЅР°РєРё РѕРєР»РёРєСѓ" << endl;
-        cout << "5.         РџРѕСЂР°С…СѓРІР°С‚Рё РєС–Р»СЊРєС–СЃС‚СЊ РІС…РѕРґР¶РµРЅСЊ СЃРёРјРІРѕР»Сѓ" << endl;
-        cout << "6.    РџРѕСЂР°С…СѓРІР°С‚Рё РєС–Р»СЊРєС–СЃС‚СЊ Р»С–С‚РµСЂ, С†РёС„СЂ С‚Р° С–РЅС€РёС… СЃРёРјРІРѕР»С–РІ" << endl;
-        cout << "7.              Р’С–РґСЃРѕСЂС‚СѓРІР°С‚Рё СЃР»РѕРІР° Р·Р° РґРѕРІР¶РёРЅРѕСЋ" << endl;
-        cout << "8.                 РћР±С‡РёСЃР»РёС‚Рё Р·РЅР°С‡РµРЅРЅСЏ РІРёСЂР°Р·Сѓ" << endl;
+        cout << "                          Меню завдань:" << endl;
+        cout << "1.               Видалити символ за індексом" << endl;
+        cout << "2.              Видалити всі входження символу" << endl;
+        cout << "3.               Вставити символ за індексом" << endl;
+        cout << "4.          Замінити всі крапки на знаки оклику" << endl;
+        cout << "5.         Порахувати кількість входжень символу" << endl;
+        cout << "6.    Порахувати кількість літер, цифр та інших символів" << endl;
+        cout << "7.              Відсортувати слова за довжиною" << endl;
+        cout << "8.                 Обчислити значення виразу" << endl;
         cout  << endl;
         cout << "#-----------------------------------------------------------------#" << endl;
-        cout << "РћР±РµСЂС–С‚СЊ Р·Р°РІРґР°РЅРЅСЏ (1-8) Р°Р±Рѕ 0 С‰РѕР± РІРёР№С‚Рё: ";
+        cout << "Оберіть завдання (1-8) або 0 щоб вийти: ";
         
         cin >> choice;
-        cin.ignore(); // РћС‡РёС‰РµРЅРЅСЏ Р±СѓС„РµСЂР° РІРІРµРґРµРЅРЅСЏ
+        cin.ignore(); // Очищення буфера
 
         switch (choice) {
         case 1:
-            cout << "Р’РІРµРґС–С‚СЊ С–РЅРґРµРєСЃ: ";
+            cout << "Введіть індекс: ";
             cin >> index;
             deleteCharacter(str, index);
             break;
         case 2:
-            cout << "Р’РІРµРґС–С‚СЊ СЃРёРјРІРѕР», СЏРєРёР№ РїРѕС‚СЂС–Р±РЅРѕ РІРёРґР°Р»РёС‚Рё: ";
+            cout << "Введіть символ, який потрібно видалити: ";
             cin >> ch;
             deleteAllOccurrences(str, ch);
             break;
         case 3:
-            cout << "Р’РІРµРґС–С‚СЊ С–РЅРґРµРєСЃ, Р·Р° СЏРєРёРј РїРѕС‚СЂС–Р±РЅРѕ РІСЃС‚Р°РІРёС‚Рё СЃРёРјРІРѕР»: ";
+            cout << "Введіть індекс, за яким потрібно вставити символ: ";
             cin >> index;
-            cout << "Р’РІРµРґС–С‚СЊ СЃРёРјРІРѕР», СЏРєРёР№ РїРѕС‚СЂС–Р±РЅРѕ РІСЃС‚Р°РІРёС‚Рё: ";
+            cout << "Введіть символ, який потрібно вставити: ";
             cin >> ch;
             insertCharacter(str, index, ch);
             break;
@@ -201,9 +201,9 @@ int main() {
             replaceDotsWithExclamation(str);
             break;
         case 5:
-            cout << "Р’РІРµРґС–С‚СЊ СЃРёРјРІРѕР», РєС–Р»СЊРєС–СЃС‚СЊ РІС…РѕРґР¶РµРЅСЊ СЏРєРѕРіРѕ РїРѕС‚СЂС–Р±РЅРѕ РїРѕСЂР°С…СѓРІР°С‚Рё: ";
+            cout << "Введіть символ, кількість входжень якого потрібно порахувати: ";
             cin >> ch;
-            cout << "РљС–Р»СЊРєС–СЃС‚СЊ РІС…РѕРґР¶РµРЅСЊ СЃРёРјРІРѕР»Сѓ '" << ch << "': " << countOccurrences(str, ch) << endl;
+            cout << "Кількість входжень символу '" << ch << "': " << countOccurrences(str, ch) << endl;
             break;
         case 6:
             countCharacters(str);
@@ -212,17 +212,17 @@ int main() {
             sortWordsByLength(str);
             break;
         case 8:
-            cout << "Р’РІРµРґС–С‚СЊ РІРёСЂР°Р·: ";
-            cin.ignore(); // РћС‡РёС‰РµРЅРЅСЏ Р±СѓС„РµСЂР° РІРІРµРґРµРЅРЅСЏ
+            cout << "Введіть вираз: ";
+            //cin.ignore(); // Очищення буфера введення
             getline(cin, expression);
-            cout << "Р РµР·СѓР»СЊС‚Р°С‚ РѕР±С‡РёСЃР»РµРЅРЅСЏ РІРёСЂР°Р·Сѓ: " << evaluateExpression(expression) << endl;
+            cout << "Результат обчислення виразу: " << evaluateExpression(expression) << endl;
             break;
         default:
             return 0;
         }
         cout  << endl;
         cout << "#-----------------------------------------------------------------#" << endl;
-        cout << "  РќР°С‚РёСЃРЅС–С‚СЊ Р»СЋР±Сѓ РєРЅРѕРїРєСѓ С‰РѕР± РїСЂРѕРґРѕРІР¶РёС‚Рё   " << endl;
+        cout << "  Натисніть любу кнопку щоб продовжити   " << endl;
         _getch();
     }
     return 0;
