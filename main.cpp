@@ -62,32 +62,41 @@ int countOccurrences(const string& str, char ch) {
 
 void countCharacters(const string& str) {
     cout << "#-----------------------------------------------------------------#" << endl;
-    int letters = 0, digits = 0, others = 0;
+    int letters = 0, digits = 0, others = 0, lettersUA = 0, probel =0;
     for (char c : str) {
-        if (isalpha(c)) {
+        if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
             letters++;
         }
-        else if (isdigit(c)) {
+        else if ((c >= 'А' && c <= 'Я') || (c >= 'а' && c <= 'я') || c == 'і' || c =='I' || c == 'ґ' || c == 'Ґ' || c == 'ї' || c == 'Ї') {
+            lettersUA++;
+        }
+        else if (c == ' ') {
+            probel++;
+        }
+
+        else if (c >= '0' && c <= '9') {
             digits++;
         }
         else {
             others++;
         }
     }
-    cout << "   Кількість літер: " << letters << endl;
+    cout << "   Кількість Us літер: " << letters << endl;
+    cout << "   Кількість Ua літер: " << lettersUA << endl;
+    cout << "   Кількість пробелів: " << probel << endl;
     cout << "   Кількість цифр: " << digits << endl;
     cout << "   Кількість інших символів: " << others << endl;
 }
 
 void sortWordsByLength(string& str) {
     cout << "#-----------------------------------------------------------------#" << endl;
-    
+
     vector<string> words;
 
     // Розбиття на слова
     string word;
     for (char c : str) {
-        if (isspace(c)) {
+        if (isspace(c) || c == '.') {
             if (!word.empty()) {
                 words.push_back(word);
                 word.clear();
@@ -156,7 +165,7 @@ int main() {
     int index;
     
 
-    cout << "Введіть рядок: ";
+    cout << "Введіть вираз з крапками та ціфрами \033[1;31m (Бажано англійскою декілька різних за довжиною слів): \033[0m "<<endl;
     getline(cin, str);
     
     while (choice != 0)
@@ -174,10 +183,14 @@ int main() {
         cout << "8.                 Обчислити значення виразу" << endl;
         cout  << endl;
         cout << "#-----------------------------------------------------------------#" << endl;
+        cout << "#              \033[1;32m  Вираз: \033[0m"<<str << endl;
+        cout << "#-----------------------------------------------------------------#" << endl;
+
+
         cout << "Оберіть завдання (1-8) або 0 щоб вийти: ";
         
         cin >> choice;
-        cin.ignore(); // Очищення буфера
+        cin.ignore(); // Очищення буфера чомусь інколи не працює
 
         switch (choice) {
         case 1:
@@ -213,7 +226,6 @@ int main() {
             break;
         case 8:
             cout << "Введіть вираз: ";
-            //cin.ignore(); // Очищення буфера введення
             getline(cin, expression);
             cout << "Результат обчислення виразу: " << evaluateExpression(expression) << endl;
             break;
