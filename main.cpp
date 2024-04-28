@@ -1,5 +1,5 @@
 ﻿#include <iostream>
-#include <conio.h>
+#include <conio.h> мені подобається пауза
 
 using namespace std;
 
