@@ -1,5 +1,4 @@
 ﻿#include <iostream>
-#include <algorithm>
 #include <conio.h>
 
 using namespace std;
@@ -16,8 +15,8 @@ void deleteCharacter(char* str, int index) {
             str[i] = str[i + 1];
         }
         str[len - 1] = '\0';
-        cout << "   Рядок після видалення: " << str << endl;
-        cout << endl;
+        cout << "   Рядок після видалення: "  << endl;
+        cout << str << endl;
     }
     else {
         cout << "   Помилка: неправильний індекс" << endl;
@@ -41,7 +40,8 @@ void deleteAllOccurrences(char* str, char ch) {
         }
     }
     str[len - shift] = '\0';
-    cout << "   Рядок після видалення усіх входжень символу '" << ch << "': " << str << endl;
+    cout << "   Рядок після видалення усіх входжень символу '" << ch << "': " << endl;
+    cout << str << endl;
 }
 
 void insertCharacter(char* str, int index, char ch) {
@@ -56,7 +56,8 @@ void insertCharacter(char* str, int index, char ch) {
             str[i + 1] = str[i];
         }
         str[index] = ch;
-        cout << "   Рядок після вставки символу: " << str << endl;
+        cout << "   Рядок після вставки символу: "  << endl;
+        cout << str << endl;
     }
     else {
         cout << "   Помилка: неправильний індекс" << endl;
@@ -72,7 +73,8 @@ void replaceDotsWithExclamation(char* str) {
         }
         len++;
     }
-    cout << "   Рядок після заміни всіх крапок на знаки оклику: " << str << endl;
+    cout << "   Рядок після заміни всіх крапок на знаки оклику: "  << endl;
+    cout << str << endl;
 }
 
 int countOccurrences(const char* str, char ch) {
@@ -125,7 +127,7 @@ void sortWordsByLength(char* str) {
         len++;
     }
 
-    char** words = new char* [len];
+    char* words[1000];
     int wordCount = 0;
     int wordStartIndex = 0;
     for (int i = 0; i <= len; i++) {
@@ -141,27 +143,28 @@ void sortWordsByLength(char* str) {
         }
     }
 
-    sort(words, words + wordCount, [](const char* a, const char* b) {
-        int lenA = 0;
-        while (a[lenA] != '\0') {
-            lenA++;
+    // Сортування слів
+    for (int i = 0; i < wordCount - 1; i++) {
+        for (int j = 0; j < wordCount - i - 1; j++) {
+            int len1 = 0;
+            while (words[j][len1] != '\0') {
+                len1++;
+            }
+            int len2 = 0;
+            while (words[j + 1][len2] != '\0') {
+                len2++;
+            }
+            if (len1 < len2) {
+                swap(words[j], words[j + 1]);
+            }
         }
-        int lenB = 0;
-        while (b[lenB] != '\0') {
-            lenB++;
-        }
-        return lenA > lenB;
-        });
+    }
 
     cout << "   Рядок зі словами в порядку зменшення їх довжини:" << endl;
     for (int i = 0; i < wordCount; i++) {
         cout << "   " << words[i] << endl;
-    }
-
-    for (int i = 0; i < wordCount; i++) {
         delete[] words[i];
     }
-    delete[] words;
 }
 
 int evaluateExpression(const char* expression) {
@@ -205,7 +208,7 @@ int main() {
     int index;
 
 
-    cout << "Введіть вираз з крапками та ціфрами (Бажано англійскою декілька різних за довжиною слів): " << endl;
+    cout << "Введіть вираз з крапками та ціфрами : " << endl;
     cin.getline(str, sizeof(str));
 
     while (choice != 0)
@@ -279,5 +282,3 @@ int main() {
     }
     return 0;
 }
-
-
