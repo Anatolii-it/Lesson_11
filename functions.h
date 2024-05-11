@@ -1,7 +1,7 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
+#include <iostream>
 
-// Прототипи функцій
 int** create2DArray(int rows, int cols);
 void fill2DArray(int** array, int rows, int cols);
 void print2DArray(int** array, int rows, int cols);

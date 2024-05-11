@@ -1,7 +1,6 @@
 #include "functions.h"
-#include <iostream>
 
-// Функція для створення двовимірного масиву
+
 int** create2DArray(int rows, int cols) {
     int** array = new int* [rows];
     for (int i = 0; i < rows; ++i) {
@@ -10,7 +9,6 @@ int** create2DArray(int rows, int cols) {
     return array;
 }
 
-// Функція для заповнення двовимірного масиву
 void fill2DArray(int** array, int rows, int cols) {
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
@@ -19,7 +17,6 @@ void fill2DArray(int** array, int rows, int cols) {
     }
 }
 
-// Функція для виведення двовимірного масиву
 void print2DArray(int** array, int rows, int cols) {
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
@@ -30,7 +27,6 @@ void print2DArray(int** array, int rows, int cols) {
 }
 
 
-// Функція для додавання рядка до початку двовимірного масиву
 void addRowTo2DArray(int**& array, int& rows, int cols, int* newRow) {
     int** newArray = new int* [rows + 1];
     newArray[0] = newRow;
@@ -43,9 +39,9 @@ void addRowTo2DArray(int**& array, int& rows, int cols, int* newRow) {
 }
 
 
-// Функція для видалення двовимірного масиву
+
 void delete2DArray(int** array, int rows) {
-    for (int i = 0; i < rows; ++i) {
+    for (int i = -1; i < rows; ++i) {
         delete[] array[i];
     }
     delete[] array;
