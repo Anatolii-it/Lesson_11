@@ -1,112 +1,43 @@
-﻿#include <iostream>
-
-const int MAX_ROWS = 100;
-const int MAX_COLS = 100;
-
-void addRowToBeginning(int arr[MAX_ROWS][MAX_COLS], int& rows, int cols, int rowToAdd[MAX_COLS]) {
-    if (rows >= MAX_ROWS) {
-        std::cout << "Масив повний, рядок не може бути доданий.\n";
-        return;
-    }
-    for (int i = rows; i > 0; i--) {
-        for (int j = 0; j < cols; j++) {
-            arr[i][j] = arr[i - 1][j];
-        }
-    }
-    for (int j = 0; j < cols; j++) {
-        arr[0][j] = rowToAdd[j];
-    }
-    rows++;
-}
-
-void addRowToPosition(int arr[MAX_ROWS][MAX_COLS], int& rows, int cols, int rowToAdd[MAX_COLS], int position) {
-    if (rows >= MAX_ROWS) {
-        std::cout << "Масив повний, рядок не може бути доданий.\n";
-        return;
-    }
-    if (position < 0 || position > rows) {
-        std::cout << "Неправильна позиція для вставки.\n";
-        return;
-    }
-    for (int i = rows; i > position; i--) {
-        for (int j = 0; j < cols; j++) {
-            arr[i][j] = arr[i - 1][j];
-        }
-    }
-    for (int j = 0; j < cols; j++) {
-        arr[position][j] = rowToAdd[j];
-    }
-    rows++;
-}
-
-void deleteRow(int arr[MAX_ROWS][MAX_COLS], int& rows, int cols, int position) {
-    if (position < 0 || position >= rows) {
-        std::cout << "Неправильна позиція для видалення.\n";
-        return;
-    }
-    for (int i = position; i < rows - 1; i++) {
-        for (int j = 0; j < cols; j++) {
-            arr[i][j] = arr[i + 1][j];
-        }
-    }
-    rows--;
-}
-
-void printArray(int arr[MAX_ROWS][MAX_COLS], int rows, int cols) {
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            std::cout << arr[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-}
+﻿#include "functions.h"
 
 int main() {
-    int arr[MAX_ROWS][MAX_COLS];
-    int rows, cols;
+    int rows = 3;
+    int cols = 3;
+    int** array = create2DArray(rows, cols);
 
-    std::cout << "Введіть кількість рядків і стовпців: ";
-    std::cin >> rows >> cols;
+    fill2DArray(array, rows, cols);
 
-    std::cout << "Введіть елементи масиву:\n";
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            std::cin >> arr[i][j];
-        }
-    }
+    cout << "Початковий масив:" << std::endl;
+    print2DArray(array, rows, cols);
 
-    std::cout << "Початковий масив:\n";
-    printArray(arr, rows, cols);
+    int newRow[] = { 9, 9, 9 };
+    addRowTo2DArray(array, rows, cols, newRow);
 
-    int rowToAdd[MAX_COLS];
-    std::cout << "Введіть рядок для додавання: ";
-    for (int j = 0; j < cols; j++) {
-        std::cin >> rowToAdd[j];
-    }
+    cout << "Перше завдання додати рядок у двовимірному масиву в початок" << std::endl;
+    cout << "\nМасив після додавання нового рядка:" << std::endl;
+    print2DArray(array, rows, cols);
 
-    addRowToBeginning(arr, rows, cols, rowToAdd);
-    std::cout << "Масив після додавання рядка в початок:\n";
-    printArray(arr, rows, cols);
-
+    
     int position;
-    std::cout << "Введіть позицію для додавання рядка: ";
-    std::cin >> position;
+    int new1Row[] = { 2, 2, 2 };
+    cout << "Друге завдання додати рядок в двовимірний масив у зазначену позіцію " << std::endl;
+    cout << "Ведіть позіцію додавання рядка - ";
+    cin >> position;
+    
 
-    std::cout << "Введіть рядок для додавання: ";
-    for (int j = 0; j < cols; j++) {
-        std::cin >> rowToAdd[j];
-    }
+    addRowToP2DArray(array, rows, cols, new1Row, position);
+    //cout << "Масив після додавання рядка на позицію " << position << ":\n";
+    print2DArray(array, rows, cols);
 
-    addRowToPosition(arr, rows, cols, rowToAdd, position);
-    std::cout << "Масив після додавання рядка на позицію " << position << ":\n";
-    printArray(arr, rows, cols);
+    cout << std::endl;
+    cout << "Трете завдання вилучення рядка з двовимірного масиву з зазначеної позіції " << std::endl;
+    cout << "Ведіть позіцію для вилучення рядка - ";
+    //cin.ignore(); якщо ввести два рази однакові значення чомусь видає помилку буферу 
+    cin >> position;
+    deleteRowFrom2DArray(array, rows, cols, position);
+    print2DArray(array, rows, cols);
 
-    std::cout << "Введіть номер рядка для видалення: ";
-    std::cin >> position;
-
-    deleteRow(arr, rows, cols, position);
-    std::cout << "Масив після видалення рядка " << position << ":\n";
-    printArray(arr, rows, cols);
+    delete2DArray(array, rows);
 
     return 0;
 }
